@@ -39,7 +39,6 @@ venv.bak/
 .idea/
 
 # Arquivos de configuração de ambiente
-.env
 .env.local
 .python-version
 
