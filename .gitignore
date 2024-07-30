@@ -1,0 +1,56 @@
+# Bytecode Python
+__pycache__/
+*.py[cod]
+
+# Pacotes
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# Arquivos de teste
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+coverage.xml
+*.cover
+.hcoverage
+.cache/
+nosetests.xml
+
+# Ambientes virtuais
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Ferramentas de desenvolvimento
+.vscode/
+.idea/
+
+# Arquivos de configuração de ambiente
+.env
+.env.local
+.python-version
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+db.json
+*.log
+
+# Arquivos temporários do Office
+~$*
+
+# Banco de Dados
+banco_api.db
