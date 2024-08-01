@@ -10,7 +10,7 @@ A Golden Raspberry Awards API é uma aplicação RESTful desenvolvida para permi
 
 2. Execute a aplicação:
     ```bash/cmd
-    python ./manane.py runserver
+    python ./manage.py runserver
     ```
 
 3. Execute os testes de integração na raiz:

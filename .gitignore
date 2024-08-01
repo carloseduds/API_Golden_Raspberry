@@ -52,4 +52,4 @@ db.json
 ~$*
 
 # Banco de Dados
-banco_api.db
+banco_api.sqlite3

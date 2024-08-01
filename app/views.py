@@ -1,4 +1,5 @@
 import os
+import re
 from collections import defaultdict
 
 from django.http import JsonResponse
@@ -67,8 +68,8 @@ def ler_intervalos_premios(request):
         producers_dict = defaultdict(list)
 
         for filme in filmes:
-            producers = [producer.strip()
-                         for producer in filme.producers.split(",")]
+            producers = [producer.strip() for producer in re.split(
+                r',\s*and\s*|,\s*|\s*and\s*', filme.producers)]
             for producer in producers:
                 producers_dict[producer].append(filme.year)
 
