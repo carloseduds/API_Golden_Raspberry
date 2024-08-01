@@ -10,12 +10,12 @@ A Golden Raspberry Awards API é uma aplicação RESTful desenvolvida para permi
 
 2. Execute a aplicação:
     ```bash/cmd
-    uvicorn app.main:app --reload
+    python ./manane.py runserver
     ```
 
-3. Execute os testes de integração:
+3. Execute os testes de integração na raiz:
     ```bash/cmd
-    pytest tests/
+    pytest
     ```
 
 ## Endpoints
