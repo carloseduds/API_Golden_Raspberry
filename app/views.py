@@ -10,12 +10,14 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from . import crud
+from .decorators import log_execution
 from .models import Filme
-from .processar_csv import processar_csv
+from .processar_csv import CSVProcessError, processar_csv
 
 load_dotenv()
 
 
+@log_execution
 @csrf_exempt
 @api_view(['POST'])
 def upload_arquivo(request):
@@ -41,11 +43,15 @@ def upload_arquivo(request):
     except ValueError as e:
         return JsonResponse({"error": str(e)},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    except CSVProcessError as e:
+        return JsonResponse({"error": str(e)},
+                            status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         return JsonResponse({"error": str(e)},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@log_execution
 def ler_filmes(request):
     """Endpoint para obter uma lista de filmes."""
     try:
@@ -61,6 +67,7 @@ def ler_filmes(request):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@log_execution
 def ler_intervalos_premios(request):
     """Endpoint para obter intervalos de prêmios entre vitórias."""
     try:

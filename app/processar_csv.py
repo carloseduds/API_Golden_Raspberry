@@ -1,19 +1,20 @@
 import pandas as pd
-from django.http import JsonResponse
-from rest_framework import status
 
 from . import crud
+from .decorators import log_execution
 
 
+class CSVProcessError(Exception):
+    pass
+
+
+@log_execution
 def processar_csv(file_path: str):
     """
     Processa um arquivo CSV e insere os dados no banco de dados.
 
     Args:
         file_path (str): Caminho para o arquivo CSV.
-
-    Returns:
-        JsonResponse: Mensagem de sucesso ou erro.
     """
     try:
         df = pd.read_csv(file_path, delimiter=';', encoding='latin1')
@@ -29,17 +30,11 @@ def processar_csv(file_path: str):
             filme_existente = crud.obter_filme_por_titulo(filme_dados['title'])
             if filme_existente is None:
                 crud.criar_filme(filme_dados)
-        return JsonResponse({"message": "Arquivo processado com sucesso."},
-                            status=status.HTTP_200_OK)
     except FileNotFoundError as e:
-        return JsonResponse({"error": f"Arquivo não encontrado: {str(e)}"},
-                            status=status.HTTP_404_NOT_FOUND)
+        raise CSVProcessError(f"Arquivo não encontrado: {str(e)}") from e
     except pd.errors.EmptyDataError as e:
-        return JsonResponse({"error": f"Arquivo CSV vazio: {str(e)}"},
-                            status=status.HTTP_400_BAD_REQUEST)
+        raise CSVProcessError(f"Arquivo CSV vazio: {str(e)}") from e
     except pd.errors.ParserError as e:
-        return JsonResponse({"error": f"Erro ao analisar o CSV: {str(e)}"},
-                            status=status.HTTP_400_BAD_REQUEST)
+        raise CSVProcessError(f"Erro ao analisar o CSV: {str(e)}") from e
     except Exception as e:
-        return JsonResponse({"error": f"Erro ao processar o CSV: {str(e)}"},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        raise CSVProcessError(f"Erro ao processar o CSV: {str(e)}") from e
