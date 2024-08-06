@@ -3,8 +3,8 @@ import os
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 
-from .decorators import log_execution
-from .processar_csv import processar_csv
+from .service.logs import log_execution
+from .service.processar_arquivo import processar_csv
 
 
 @log_execution

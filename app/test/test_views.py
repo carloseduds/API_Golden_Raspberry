@@ -36,8 +36,6 @@ def test_obter_produtores_ganhadores():
     url = reverse('ler-intervalos-premios')
 
     response = client.get(url)
-    # Adicione esta linha para imprimir a resposta em caso de erro
-    print(response.json())
     assert response.status_code == 200
 
     data = response.json()

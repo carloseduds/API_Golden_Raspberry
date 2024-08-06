@@ -2,9 +2,11 @@ from django.db import IntegrityError
 from django.http import JsonResponse
 from rest_framework import status
 
-from .models import Filme
+from ..models import Filme
+from .logs import log_execution
 
 
+@log_execution
 def obter_filmes(skip: int = 0, limit: int = 100):
     """
     Retorna uma lista de filmes com paginação.
